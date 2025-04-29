@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ONLINE_SHOP_API_URL } from '../../common/common';
+import { TProduct } from '../../types/Products';
+import { ProductsList } from '../ProductsList/ProductsList';
 
-function Products() {
+export function Products() {
   // This component will display a list of products
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<TProduct[]>([]);
 
   // ONLINE_SHOP_API_URL
 
@@ -23,10 +25,7 @@ function Products() {
 
   return (
     <div>
-      <h1>Products</h1>
-
-      <p>List of products will be displayed here.</p>
+      <ProductsList products={products} />
     </div>
   );
 }
-export { Products };
