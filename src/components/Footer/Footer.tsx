@@ -1,4 +1,18 @@
+import styled from 'styled-components';
+
+const FooterWrapper = styled.footer`
+  background-color: #222;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  margin-top: auto;
+`;
+
 function Footer() {
-  return <footer>{<h1>Footer Copyright (c) 2025</h1>}</footer>;
+  return (
+    <FooterWrapper>
+      <p>&copy; {new Date().getFullYear()} Ecom Store</p>
+    </FooterWrapper>
+  );
 }
 export { Footer };
