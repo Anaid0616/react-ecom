@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
+import { useCartStore } from '../../store/useCartStore';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const HeaderWrapper = styled.header`
@@ -40,7 +40,8 @@ const CartIcon = styled.div`
 `;
 
 function Header() {
-  const { items } = useCart();
+  const items = useCartStore((state) => state.items);
+  const total = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <HeaderWrapper>
@@ -53,7 +54,7 @@ function Header() {
           <Link to="/cart">
             <CartIcon>
               <FaShoppingCart />
-              {items}
+              {total}
             </CartIcon>
           </Link>
         </NavLinks>

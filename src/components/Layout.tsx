@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Header } from '../components/Header/Header';
 import { Footer } from '../components/Footer/Footer';
 import { GlobalStyle } from '../styles/GlobalStyles';
+import { Toaster } from 'react-hot-toast';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -26,6 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Header />
         <Main>{children}</Main>
         <Footer />
+        <Toaster position="top-right" />
       </PageWrapper>
     </>
   );

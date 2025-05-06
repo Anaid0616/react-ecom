@@ -1,6 +1,9 @@
-import { TProduct } from '../../types/Products';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useCartStore } from '../../store/useCartStore';
+import { TProduct } from '../../types/Products';
+import { toast } from 'react-hot-toast';
 
 const Card = styled.div`
   background: white;
@@ -37,9 +40,56 @@ const ProductContent = styled.div`
   }
 
   p {
-    margin-top: auto;
     font-weight: bold;
     font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+`;
+
+const ViewButton = styled(Link)`
+  background-color: #8e44ad;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #732d91;
+    color: white;
+  }
+`;
+
+const QuickAddButton = styled.button`
+  background-color: #008c7e;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #006a5f;
+  }
+
+  svg {
+    color: white;
+    font-size: 0.9rem;
   }
 `;
 
@@ -59,19 +109,27 @@ type ProductProps = {
 
 export const Product = ({ product }: ProductProps) => {
   const { image, title, price, id } = product;
+  const addToCart = useCartStore((state) => state.addToCart);
+
+  const handleQuickAdd = () => {
+    addToCart(product);
+    toast.success(`${title} added to cart`);
+  };
 
   return (
-    <Link
-      to={`/product/${id}`}
-      style={{ textDecoration: 'none', color: 'inherit' }}
-    >
-      <Card>
-        <ProductImage src={image.url} alt={image.alt || title} />
-        <ProductContent>
-          <h3>{title}</h3>
-          <p>{price} kr</p>
-        </ProductContent>
-      </Card>
-    </Link>
+    <Card>
+      <ProductImage src={image.url} alt={image.alt || title} />
+      <ProductContent>
+        <h3>{title}</h3>
+        <p>{price} kr</p>
+        <div className="actions">
+          <ViewButton to={`/product/${id}`}>View product</ViewButton>
+          <QuickAddButton onClick={handleQuickAdd} title="Add to cart">
+            <FaShoppingCart />
+            <span style={{ marginLeft: '0.3rem' }}>+</span>
+          </QuickAddButton>
+        </div>
+      </ProductContent>
+    </Card>
   );
 };

@@ -11,7 +11,7 @@ describe('ProductList', () => {
         title: 'This is my title',
         description: 'This is my description',
         price: 19.99,
-        discountPrice: 15.99,
+        discountedPrice: 15.99,
         image: { alt: '', url: '' },
         rating: 5,
         reviews: [
