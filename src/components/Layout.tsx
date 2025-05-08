@@ -4,6 +4,7 @@ import { Footer } from '../components/Footer/Footer';
 import { GlobalStyle } from '../styles/GlobalStyles';
 import { Toaster } from 'react-hot-toast';
 
+// --- Styled components ---
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,10 +16,13 @@ const Main = styled.main`
   padding: 2rem 2rem 4rem;
 `;
 
+// --- Types ---
 type LayoutProps = {
   children: React.ReactNode;
 };
 
+// --- Layout component ---
+// This component wraps the entire application layout, including the header, footer, and main content area.
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>

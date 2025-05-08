@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCartStore } from '../../store/useCartStore';
 import { FaShoppingCart } from 'react-icons/fa';
 
+// --- Styled components ---
 const HeaderWrapper = styled.header`
   background: linear-gradient(90deg, #00bfa6, #8e44ad);
   padding: 1rem 2rem;

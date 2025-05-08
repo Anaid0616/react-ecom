@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
 import { useDebounce } from '../../utils/useDebounce';
 
+// --- Styled components ---
 const Wrapper = styled.div`
   padding: 2rem;
 `;
@@ -66,14 +67,22 @@ const ClearIcon = styled.span`
   }
 `;
 
+/**
+ * Products component.
+ *
+ * Fetches and displays a list of products from the API.
+ * Includes a debounced search bar that filters products by title or description.
+ * Allows the user to clear the search input.
+ *
+ * Displays a message if no products match the search.
+ *
+ * @returns {JSX.Element} A product listing interface with search functionality.
+ */
 export function Products() {
-  // This component will display a list of products
   const [products, setProducts] = useState<TProduct[]>([]);
   const [search, setSearch] = useState('');
 
   const debouncedSearch = useDebounce(search);
-
-  // ONLINE_SHOP_API_URL
 
   useEffect(() => {
     async function fetchProducts() {
@@ -102,8 +111,11 @@ export function Products() {
       <SearchContainer>
         <SearchWrapper>
           <SearchInput
+            id="search"
+            name="search"
             type="text"
             placeholder="Search products..."
+            autoComplete="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />

@@ -2,6 +2,7 @@ import { TProduct } from '../../types/Products';
 import { Product } from '../Product/Product';
 import styled from 'styled-components';
 
+// --- Styled components ---
 const Grid = styled.div`
   display: grid;
   gap: 2rem;
@@ -12,6 +13,7 @@ const Grid = styled.div`
   margin: 0 auto;
 `;
 
+// --- ProductList component ---
 type TProductsListProps = {
   products: TProduct[];
 };

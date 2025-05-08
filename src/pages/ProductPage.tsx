@@ -163,13 +163,13 @@ export default function ProductPage() {
                     marginRight: '0.5rem',
                   }}
                 >
-                  {product.price} kr
+                  {product.price} €
                 </span>
-                <strong>{product.discountedPrice} kr</strong>
+                <strong>{product.discountedPrice} €</strong>
                 <Discount>({discountPercentage}% off)</Discount>
               </>
             ) : (
-              <strong>{product.price} kr</strong>
+              <strong>{product.price} €</strong>
             )}
           </div>
           <AddToCartButton

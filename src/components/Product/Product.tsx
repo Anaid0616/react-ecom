@@ -5,6 +5,7 @@ import { useCartStore } from '../../store/useCartStore';
 import { TProduct } from '../../types/Products';
 import { toast } from 'react-hot-toast';
 
+// --- Styled components ---
 const Card = styled.div`
   background: white;
   padding: 1rem;
@@ -93,6 +94,7 @@ const QuickAddButton = styled.button`
   }
 `;
 
+// --- Types ---
 type ProductProps = {
   product: TProduct;
 };
@@ -106,7 +108,6 @@ type ProductProps = {
  * @param {TProduct} props.product - The product data to display.
  * @returns {JSX.Element} A clickable product card.
  */
-
 export const Product = ({ product }: ProductProps) => {
   const { image, title, price, id } = product;
   const addToCart = useCartStore((state) => state.addToCart);
@@ -121,7 +122,7 @@ export const Product = ({ product }: ProductProps) => {
       <ProductImage src={image.url} alt={image.alt || title} />
       <ProductContent>
         <h3>{title}</h3>
-        <p>{price} kr</p>
+        <p>{price} €</p>
         <div className="actions">
           <ViewButton to={`/product/${id}`}>View product</ViewButton>
           <QuickAddButton onClick={handleQuickAdd} title="Add to cart">
