@@ -88,7 +88,7 @@ const ActionButton = styled.button`
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
   cursor: pointer;
 
   &:hover {

@@ -1,5 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useState } from 'react';
 
 // --- Styled components ---
 const Wrapper = styled.div`
@@ -45,116 +48,93 @@ const Button = styled.button`
   }
 `;
 
+const SuccessMessage = styled.p`
+  color: green;
+  font-weight: bold;
+  margin-bottom: 1rem;
+`;
+
+// --- Schema ---
+const schema = yup
+  .object({
+    fullName: yup
+      .string()
+      .min(3, 'Full name must be at least 3 characters.')
+      .required('Full name is required.'),
+    subject: yup
+      .string()
+      .min(3, 'Subject must be at least 3 characters.')
+      .required('Subject is required.'),
+    email: yup
+      .string()
+      .email('Must be a valid email.')
+      .required('Email is required.'),
+    body: yup
+      .string()
+      .min(3, 'Message must be at least 3 characters.')
+      .required('Message is required.'),
+  })
+  .required();
+
 // --- Types ---
-type FormData = {
-  fullName: string;
-  subject: string;
-  email: string;
-  body: string;
-};
+type FormData = yup.InferType<typeof schema>;
 
 /**
- * ContactPage component.
- *
- * Renders a contact form with the following fields:
- * - Full name (required, minimum 3 characters)
- * - Subject (required, minimum 3 characters)
- * - Email (required, must be a valid email address)
- * - Body (required, minimum 3 characters)
- *
- * Upon successful validation, the form submission is logged to the console.
- *
- * @returns A React component that displays the contact form.
+ * ContactPage component using react-hook-form and yup.
  */
 export default function ContactPage() {
-  const [formData, setFormData] = useState<FormData>({
-    fullName: '',
-    subject: '',
-    email: '',
-    body: '',
+  const [submitted, setSubmitted] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-    if (formData.fullName.trim().length < 3)
-      newErrors.fullName = 'Full name must be at least 3 characters.';
-    if (formData.subject.trim().length < 3)
-      newErrors.subject = 'Subject must be at least 3 characters.';
-    if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = 'Invalid email address.';
-    if (formData.body.trim().length < 3)
-      newErrors.body = 'Message must be at least 3 characters.';
-    return newErrors;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      setErrors({});
-      console.log('✅ Submitted Data:', formData);
-    }
+  const onSubmit = (data: FormData) => {
+    console.log('✅ Submitted with RHF:', data);
+    reset(); // Reset the form after submission
+    setSubmitted(true);
   };
 
   return (
     <Wrapper>
       <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit} noValidate>
+      {submitted && (
+        <SuccessMessage>
+          ✅ Thank you! Your message has been sent.
+        </SuccessMessage>
+      )}
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Field>
           <label htmlFor="fullName">Full Name</label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            autoComplete="name"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-          />
+          <input id="fullName" autoComplete="name" {...register('fullName')} />
           {errors.fullName && (
-            <small style={{ color: 'red' }}>{errors.fullName}</small>
+            <small style={{ color: 'red' }}>{errors.fullName.message}</small>
           )}
         </Field>
 
         <Field>
           <label htmlFor="subject">Subject</label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            autoComplete="off"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-          />
+          <input id="subject" autoComplete="off" {...register('subject')} />
           {errors.subject && (
-            <small style={{ color: 'red' }}>{errors.subject}</small>
+            <small style={{ color: 'red' }}>{errors.subject.message}</small>
           )}
         </Field>
 
         <Field>
           <label htmlFor="email">Email</label>
           <input
-            type="email"
             id="email"
-            name="email"
+            type="email"
             autoComplete="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            {...register('email')}
           />
           {errors.email && (
-            <small style={{ color: 'red' }}>{errors.email}</small>
+            <small style={{ color: 'red' }}>{errors.email.message}</small>
           )}
         </Field>
 
@@ -162,14 +142,13 @@ export default function ContactPage() {
           <label htmlFor="body">Message</label>
           <textarea
             id="body"
-            name="body"
-            autoComplete="off"
             rows={5}
-            value={formData.body}
-            onChange={handleChange}
-            required
+            autoComplete="off"
+            {...register('body')}
           />
-          {errors.body && <small style={{ color: 'red' }}>{errors.body}</small>}
+          {errors.body && (
+            <small style={{ color: 'red' }}>{errors.body.message}</small>
+          )}
         </Field>
 
         <Button type="submit">Submit</Button>
