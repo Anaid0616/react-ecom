@@ -1,13 +1,24 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useCartStore } from '../../store/useCartStore';
-import { FaShoppingCart } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaBars, FaTimes, FaShoppingCart } from 'react-icons/fa';
 
 // --- Styled components ---
 const HeaderWrapper = styled.header`
   background: linear-gradient(90deg, #00bfa6, #8e44ad);
-  padding: 1rem 2rem;
+
   color: white;
+`;
+
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @media (max-width: 600px) {
+    padding: 0 0.5rem;
+  }
 `;
 
 const Nav = styled.nav`
@@ -15,11 +26,53 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  position: relative;
 `;
 
-const NavLinks = styled.div`
+const CartIconWrapper = styled.div`
+  position: relative;
   display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const CartIcon = styled.div`
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+`;
+
+const CartCount = styled.span`
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background-color: #00bfa6;
+  color: #8e44ad;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+  line-height: 1;
+`;
+
+const LogoSection = styled.div`
+  flex: 1;
+
+  @media (max-width: 600px) {
+    margin-left: 0.3rem;
+  }
+`;
+
+const DesktopLinks = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 
   a {
     color: white;
@@ -31,35 +84,108 @@ const NavLinks = styled.div`
   }
 `;
 
-const CartIcon = styled.div`
+const MobileActions = styled.div`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  @media (max-width: 400px) {
+    gap: 1rem;
+  }
+`;
+
+const MobileNavLinks = styled.div<{ $open: boolean }>`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: ${({ $open }) => ($open ? 'flex' : 'none')};
+    flex-direction: column;
+    background: linear-gradient(90deg, #00bfa6, #8e44ad);
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+
+    a {
+      color: white;
+      font-weight: 500;
+    }
+  }
+`;
+
+const HamburgerButton = styled.button`
+  background: none;
+  border: none;
   color: white;
-  font-weight: bold;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.6rem;
+
+  /* Remove focus outline and border */
+  outline: none;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+  }
 `;
 
 function Header() {
   const items = useCartStore((state) => state.items);
   const total = items.reduce((sum, item) => sum + item.quantity, 0);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <HeaderWrapper>
-      <Nav>
-        <Link to="/">
-          <h2>Ecom Store</h2>
-        </Link>
-        <NavLinks>
-          <Link to="/contact">Contact</Link>
-          <Link to="/cart">
-            <CartIcon>
-              <FaShoppingCart />
-              {total}
-            </CartIcon>
-          </Link>
-        </NavLinks>
-      </Nav>
+      <Container>
+        <Nav>
+          <LogoSection>
+            <Link to="/">
+              <h2>Ecom Store</h2>
+            </Link>
+          </LogoSection>
+
+          <DesktopLinks>
+            <Link to="/contact">Contact</Link>
+            <Link to="/cart">
+              <CartIconWrapper>
+                <CartIcon>
+                  <FaShoppingCart size={20} />
+                </CartIcon>
+                {total > 0 && <CartCount>{total}</CartCount>}
+              </CartIconWrapper>
+            </Link>
+          </DesktopLinks>
+
+          <MobileActions>
+            <Link to="/cart">
+              <CartIconWrapper>
+                <CartIcon>
+                  <FaShoppingCart size={20} />
+                </CartIcon>
+                {total > 0 && <CartCount>{total}</CartCount>}
+              </CartIconWrapper>
+            </Link>
+            <HamburgerButton onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <FaTimes /> : <FaBars />}
+            </HamburgerButton>
+          </MobileActions>
+
+          <MobileNavLinks $open={isOpen}>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>
+              Contact
+            </Link>
+          </MobileNavLinks>
+        </Nav>
+      </Container>
     </HeaderWrapper>
   );
 }

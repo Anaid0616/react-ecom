@@ -10,19 +10,31 @@ const Wrapper = styled.div`
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
+
+  @media (max-width: 500px) {
+    padding: 0.1rem;
 `;
 
 const CartTitle = styled.h1`
   margin-bottom: 2rem;
   text-align: center;
+
+  @media (max-width: 600px) {
+    font-size: 2.2rem;
 `;
 
 const CartItem = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const ProductImage = styled.img`
@@ -60,6 +72,19 @@ const Button = styled.button`
 
   &:hover {
     background-color: #ddd;
+  }
+`;
+
+const ItemActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+
+  @media (max-width: 600px) {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
   }
 `;
 
@@ -247,13 +272,16 @@ export default function CartPage() {
               </Button>
             </QuantityControls>
           </Info>
-          <Price $discounted={item.discountedPrice < item.price}>
-            {(item.discountedPrice || item.price) * item.quantity} kr
-          </Price>
 
-          <TrashButton onClick={() => removeFromCart(item.id)}>
-            <FaTrash />
-          </TrashButton>
+          <ItemActions>
+            <Price $discounted={item.discountedPrice < item.price}>
+              {(item.discountedPrice || item.price) * item.quantity} kr
+            </Price>
+
+            <TrashButton onClick={() => removeFromCart(item.id)}>
+              <FaTrash />
+            </TrashButton>
+          </ItemActions>
         </CartItem>
       ))}
       <Summary>

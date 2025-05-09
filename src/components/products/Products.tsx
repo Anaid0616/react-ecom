@@ -9,6 +9,10 @@ import { useDebounce } from '../../utils/useDebounce';
 
 const Wrapper = styled.div`
   padding: 2rem;
+
+  @media (max-width: 600px) {
+    padding: 0.1rem;
+  }
 `;
 
 const Message = styled.p`

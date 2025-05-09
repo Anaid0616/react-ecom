@@ -25,13 +25,14 @@ const BackButton = styled(Link)`
   background-color: #8e44ad;
   color: white;
   padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 20px;
   text-decoration: none;
   font-weight: 600;
   transition: background 0.2s;
 
   &:hover {
     background-color: #732d91;
+    color: white;
   }
 `;
 

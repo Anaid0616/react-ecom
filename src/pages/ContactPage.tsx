@@ -7,8 +7,23 @@ import { useState } from 'react';
 // --- Styled components ---
 const Wrapper = styled.div`
   max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: 0 auto;
+  padding: 0rem 2rem;
+
+    h1 {
+text-align: center;
+    margin-bottom: 3rem; 
+  }
+
+    @media (max-width: 600px) {
+      padding: 0.4rem;
+    }
+
+  h1 {
+    @media (max-width: 600px) {
+      font-size: 2.3rem;
+    }
+
 `;
 
 const Field = styled.div`
@@ -40,7 +55,7 @@ const Button = styled.button`
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 6px;
+  border-radius: 20px;
   cursor: pointer;
 
   &:hover {
