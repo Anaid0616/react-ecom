@@ -12,11 +12,15 @@ const SearchWrapper = styled.div<{ $open?: boolean }>`
   margin: 0 auto 2rem;
   border: 1px solid #ccc;
   border-radius: ${({ $open }) => ($open ? '20px 20px 0 0' : '20px')};
-
   background: white;
   padding: 0.8rem 1rem;
   display: flex;
   z-index: 9;
+  transition: box-shadow 0.2s;
+
+  &:has(input:focus) {
+    box-shadow: 0 0 3px 1px rgba(0, 191, 165, 0.4);
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -100,6 +104,7 @@ type Props = {
   onChange: (value: string) => void;
   onSelect: (id: string) => void;
 };
+
 export function SearchBar({ products, value, onChange, onSelect }: Props) {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -115,6 +120,8 @@ export function SearchBar({ products, value, onChange, onSelect }: Props) {
         }
       >
         <SearchInput
+          id="searchInput"
+          name="search"
           type="text"
           placeholder="Search products..."
           autoComplete="off"
@@ -133,19 +140,20 @@ export function SearchBar({ products, value, onChange, onSelect }: Props) {
           <SearchIcon />
         )}
       </SearchWrapper>
-
-      {showSuggestions && value.length > 1 && (
-        <AutocompleteList>
-          {filteredSuggestions.slice(0, 5).map((product) => (
-            <AutocompleteItem
-              key={product.id}
-              onMouseDown={() => onSelect(product.id)}
-            >
-              <Link to={`/product/${product.id}`}>{product.title}</Link>
-            </AutocompleteItem>
-          ))}
-        </AutocompleteList>
-      )}
+      {showSuggestions &&
+        value.length > 1 &&
+        filteredSuggestions.length > 0 && (
+          <AutocompleteList>
+            {filteredSuggestions.slice(0, 5).map((product) => (
+              <AutocompleteItem
+                key={product.id}
+                onMouseDown={() => onSelect(product.id)}
+              >
+                <Link to={`/product/${product.id}`}>{product.title}</Link>
+              </AutocompleteItem>
+            ))}
+          </AutocompleteList>
+        )}
     </SearchContainer>
   );
 }
