@@ -8,7 +8,7 @@ import { useState } from 'react';
 const Wrapper = styled.div`
   max-width: 600px;
   margin: 0 auto;
-  padding: 0rem 2rem;
+  padding: 2rem;
 
     h1 {
 text-align: center;
@@ -16,7 +16,7 @@ text-align: center;
   }
 
     @media (max-width: 600px) {
-      padding: 0.4rem;
+      padding: 0.5rem;
     }
 
   h1 {

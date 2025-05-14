@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCartStore } from '../../store/useCartStore';
 import { useState } from 'react';
 import { FaBars, FaTimes, FaShoppingCart } from 'react-icons/fa';
+import logo from '../../assets/logov.png';
 
 // --- Styled components ---
 const HeaderWrapper = styled.header`
@@ -19,6 +20,15 @@ const Container = styled.div`
   @media (max-width: 600px) {
     padding: 0 0.5rem;
   }
+`;
+
+const LogoSection = styled.div`
+  flex: 1;
+`;
+
+const Logo = styled.img`
+  height: 40px;
+  padding: 1.2rem 0rem 1rem 0rem;
 `;
 
 const Nav = styled.nav`
@@ -57,14 +67,6 @@ const CartCount = styled.span`
   line-height: 1;
 `;
 
-const LogoSection = styled.div`
-  flex: 1;
-
-  @media (max-width: 600px) {
-    margin-left: 0.3rem;
-  }
-`;
-
 const DesktopLinks = styled.div`
   display: flex;
   align-items: center;
@@ -76,7 +78,7 @@ const DesktopLinks = styled.div`
 
   a {
     color: white;
-    font-weight: 500;
+    font-weight: 550;
     transition: opacity 0.2s;
     &:hover {
       opacity: 0.8;
@@ -111,7 +113,7 @@ const MobileNavLinks = styled.div<{ $open: boolean }>`
 
     a {
       color: white;
-      font-weight: 500;
+      font-weight: 550;
     }
   }
 `;
@@ -149,7 +151,7 @@ function Header() {
         <Nav>
           <LogoSection>
             <Link to="/">
-              <h2>Ecom Store</h2>
+              <Logo src={logo} alt="Vibity Logo" />
             </Link>
           </LogoSection>
 

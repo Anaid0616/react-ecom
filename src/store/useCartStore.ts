@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { TProduct } from '../types/Products';
 
+// --- Types ---
 type CartItem = TProduct & { quantity: number };
 
 type CartStore = {

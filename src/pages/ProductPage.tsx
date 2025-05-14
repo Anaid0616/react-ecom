@@ -23,7 +23,7 @@ const Breadcrumbs = styled.div`
   }
 
   span {
-    color: #777;
+    color: #666;
   }
 `;
 
@@ -37,6 +37,11 @@ const FlexWrapper = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
+  padding-top: 1.5rem;
+
+  @media (max-width: 689px) {
+  padding-top: 0;
+  gap: 0rem;
 `;
 
 const ProductImage = styled.img`
@@ -53,6 +58,7 @@ const ProductDetails = styled.div`
 
     h1 {
     font-size: 2rem;
+    font-weight: 600;
 `;
 
 const AddToCartButton = styled.button`
@@ -94,6 +100,8 @@ const Reviewer = styled.div`
 
 const ReviewText = styled.p`
   margin: 0.2rem 0 0.5rem;
+  color: #555;
+  font-size: 0.9rem;
 `;
 
 const ReviewMeta = styled.div`

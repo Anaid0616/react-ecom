@@ -27,10 +27,11 @@ const ProductContent = styled.div`
   flex-direction: column;
   padding-top: 1rem;
 
-  h3 {
-    margin: 0 0 1rem;
+  h2 {
+    margin: 0 0 0.5rem;
     font-size: 1rem;
-    font-weight: 500;
+    color: #555;
+    font-weight: 550;
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -41,9 +42,9 @@ const ProductContent = styled.div`
   }
 
   p {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    margin: 0rem 0.5rem 1rem 0rem;
   }
 
   .actions {
@@ -121,13 +122,15 @@ export const Product = ({ product }: ProductProps) => {
     <Card>
       <ProductImage src={image.url} alt={image.alt || title} />
       <ProductContent>
-        <h3>{title}</h3>
+        <h2>{title}</h2>
         <p>{price} €</p>
         <div className="actions">
           <ViewButton to={`/product/${id}`}>View product</ViewButton>
           <QuickAddButton onClick={handleQuickAdd} title="Add to cart">
             <FaShoppingCart />
-            <span style={{ marginLeft: '0.3rem' }}>+</span>
+            <span style={{ marginLeft: '0.3rem' }}>
+              <strong>+</strong>
+            </span>
           </QuickAddButton>
         </div>
       </ProductContent>

@@ -7,13 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
 import { useDebounce } from '../../utils/useDebounce';
 
-const Wrapper = styled.div`
-  padding: 2rem;
-
-  @media (max-width: 600px) {
-    padding: 0.1rem;
-  }
-`;
+const Wrapper = styled.div``;
 
 const Message = styled.p`
   font-size: 1.2rem;

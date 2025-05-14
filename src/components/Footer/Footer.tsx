@@ -12,7 +12,7 @@ const FooterWrapper = styled.footer`
 function Footer() {
   return (
     <FooterWrapper>
-      <p>&copy; {new Date().getFullYear()} Ecom Store</p>
+      <p>&copy; {new Date().getFullYear()} Vibity</p>
     </FooterWrapper>
   );
 }

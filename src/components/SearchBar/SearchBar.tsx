@@ -5,11 +5,38 @@ import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { TProduct } from '../../types/Products';
 
+const SearchArea = styled.div`
+  background-image: url('/src/assets/banner.png');
+  background-size: cover;
+  background-position: center bottom;
+  padding: 6rem 0rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const SearchContainer = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 2rem;
+`;
+
+const IntroText = styled.h1`
+  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
+  }
+`;
+
 const SearchWrapper = styled.div<{ $open?: boolean }>`
   position: relative;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto 2rem;
+  margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: ${({ $open }) => ($open ? '20px 20px 0 0' : '20px')};
   background: white;
@@ -19,15 +46,8 @@ const SearchWrapper = styled.div<{ $open?: boolean }>`
   transition: box-shadow 0.2s;
 
   &:has(input:focus) {
-    box-shadow: 0 0 3px 1px rgba(0, 191, 165, 0.4);
+    box-shadow: 0 0 3px 1px #8e44ad;
   }
-`;
-
-const SearchContainer = styled.div`
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto 2rem;
 `;
 
 const SearchInput = styled.input`
@@ -70,6 +90,7 @@ const AutocompleteList = styled.ul`
   top: 100%;
   left: 0;
   right: 0;
+  width: 100%;
   background: white;
   border: 1px solid #ccc;
   border-top: none;
@@ -79,6 +100,10 @@ const AutocompleteList = styled.ul`
   margin: 0;
   padding: 0;
   z-index: 10;
+  box-sizing: border-box;
+
+  box-shadow: 0 3px 6px -1px #8e44ad, -2px 0 4px -2px #8e44ad,
+    2px 0 4px -2px #8e44ad;
 `;
 
 const AutocompleteItem = styled.li`
@@ -113,47 +138,53 @@ export function SearchBar({ products, value, onChange, onSelect }: Props) {
   );
 
   return (
-    <SearchContainer>
-      <SearchWrapper
-        $open={
-          showSuggestions && value.length > 1 && filteredSuggestions.length > 0
-        }
-      >
-        <SearchInput
-          id="searchInput"
-          name="search"
-          type="text"
-          placeholder="Search products..."
-          autoComplete="off"
-          value={value}
-          onChange={(e) => {
-            onChange(e.target.value);
-            setShowSuggestions(true);
-          }}
-          onFocus={() => setShowSuggestions(true)}
-          onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-        />
+    <SearchArea>
+      <SearchContainer>
+        <IntroText>What’s your vibe this summer?</IntroText>
+        <SearchWrapper
+          $open={
+            showSuggestions &&
+            value.length > 1 &&
+            filteredSuggestions.length > 0
+          }
+        >
+          <SearchInput
+            id="searchInput"
+            name="search"
+            type="text"
+            placeholder="Search products..."
+            autoComplete="off"
+            value={value}
+            onChange={(e) => {
+              onChange(e.target.value);
+              setShowSuggestions(true);
+            }}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+          />
 
-        {value.length > 0 ? (
-          <ClearIcon onMouseDown={() => onChange('')}>&times;</ClearIcon>
-        ) : (
-          <SearchIcon />
-        )}
-      </SearchWrapper>
-      {showSuggestions &&
-        value.length > 1 &&
-        filteredSuggestions.length > 0 && (
-          <AutocompleteList>
-            {filteredSuggestions.slice(0, 5).map((product) => (
-              <AutocompleteItem
-                key={product.id}
-                onMouseDown={() => onSelect(product.id)}
-              >
-                <Link to={`/product/${product.id}`}>{product.title}</Link>
-              </AutocompleteItem>
-            ))}
-          </AutocompleteList>
-        )}
-    </SearchContainer>
+          {value.length > 0 ? (
+            <ClearIcon onMouseDown={() => onChange('')}>&times;</ClearIcon>
+          ) : (
+            <SearchIcon />
+          )}
+
+          {showSuggestions &&
+            value.length > 1 &&
+            filteredSuggestions.length > 0 && (
+              <AutocompleteList>
+                {filteredSuggestions.slice(0, 5).map((product) => (
+                  <AutocompleteItem
+                    key={product.id}
+                    onMouseDown={() => onSelect(product.id)}
+                  >
+                    <Link to={`/product/${product.id}`}>{product.title}</Link>
+                  </AutocompleteItem>
+                ))}
+              </AutocompleteList>
+            )}
+        </SearchWrapper>
+      </SearchContainer>
+    </SearchArea>
   );
 }

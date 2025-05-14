@@ -13,7 +13,7 @@ const PageWrapper = styled.div`
 
 const Main = styled.main`
   flex-grow: 1;
-  padding: 2rem 2rem 4rem;
+  padding-bottom: 4rem;
 `;
 
 // --- Types ---
