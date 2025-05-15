@@ -41,25 +41,27 @@ const ProductContent = styled.div`
     min-height: 2.8rem;
   }
 
-  p {
+  h3 {
     font-weight: bolder;
     font-size: 1.2rem;
     margin: 0rem 0.5rem 1rem 0rem;
   }
+`;
 
-  .actions {
+const Actions = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
   }
-`;
+    `;
 
 const ViewButton = styled(Link)`
   background-color: #8e44ad;
   color: white;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.8rem;
   border-radius: 20px;
   text-align: center;
   font-weight: 600;
@@ -74,7 +76,7 @@ const ViewButton = styled(Link)`
 `;
 
 const QuickAddButton = styled.button`
-  background-color: #008c7e;
+  background-color: rgb(0, 131, 138);
   color: white;
   padding: 0.5rem 0.8rem;
   border-radius: 20px;
@@ -123,16 +125,25 @@ export const Product = ({ product }: ProductProps) => {
       <ProductImage src={image.url} alt={image.alt || title} />
       <ProductContent>
         <h2>{title}</h2>
-        <p>{price} €</p>
-        <div className="actions">
-          <ViewButton to={`/product/${id}`}>View product</ViewButton>
-          <QuickAddButton onClick={handleQuickAdd} title="Add to cart">
+        <h3>{price} €</h3>
+        <Actions>
+          <ViewButton to={`/product/${id}`} aria-label="View product">
+            View product
+          </ViewButton>
+          <QuickAddButton onClick={handleQuickAdd} aria-label="Add to cart">
             <FaShoppingCart />
-            <span style={{ marginLeft: '0.3rem' }}>
-              <strong>+</strong>
+            <span
+              style={{
+                marginLeft: '0.3rem',
+                fontSize: '1.2rem',
+                fontWeight: 700,
+                lineHeight: '1',
+              }}
+            >
+              +
             </span>
           </QuickAddButton>
-        </div>
+        </Actions>
       </ProductContent>
     </Card>
   );

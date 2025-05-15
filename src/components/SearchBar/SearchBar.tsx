@@ -6,13 +6,18 @@ import { Link } from 'react-router-dom';
 import { TProduct } from '../../types/Products';
 
 const SearchArea = styled.div`
-  background-image: url('/src/assets/banner.png');
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url('/src/assets/banner.png');
   background-size: cover;
   background-position: center bottom;
   padding: 6rem 0rem;
   display: flex;
   justify-content: center;
   width: 100%;
+
+  @media (max-width: 600px) {
+    background-position: center;
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -26,7 +31,7 @@ const IntroText = styled.h1`
   color: white;
   font-size: 1.8rem;
   margin-bottom: 1.2rem;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 600px) {
     font-size: 0.9rem;
@@ -123,6 +128,17 @@ const AutocompleteItem = styled.li`
   }
 `;
 
+const VisuallyHiddenLabel = styled.label`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+`;
+
 type Props = {
   products: TProduct[];
   value: string;
@@ -148,6 +164,10 @@ export function SearchBar({ products, value, onChange, onSelect }: Props) {
             filteredSuggestions.length > 0
           }
         >
+          <VisuallyHiddenLabel htmlFor="searchInput">
+            Search for products
+          </VisuallyHiddenLabel>
+
           <SearchInput
             id="searchInput"
             name="search"

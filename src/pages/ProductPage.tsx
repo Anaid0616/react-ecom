@@ -8,6 +8,12 @@ import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 // --- Styled components ---
+const Wrapper = styled.div`
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
 const Breadcrumbs = styled.div`
   font-size: 0.9rem;
   margin-bottom: 2rem;
@@ -25,10 +31,6 @@ const Breadcrumbs = styled.div`
   span {
     color: #666;
   }
-`;
-
-const Wrapper = styled.div`
-  padding: 2rem;
 `;
 
 const FlexWrapper = styled.div`
@@ -61,11 +63,28 @@ const ProductDetails = styled.div`
     font-weight: 600;
 `;
 
+const Description = styled.p`
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+`;
+
+const Price = styled.span`
+  font-weight: 700;
+  font-size: 1.2rem;
+`;
+
+const DiscountedPrice = styled(Price)`
+  color: #111;
+`;
+
 const AddToCartButton = styled.button`
-  background-color: #009b8a;
+  background-color: rgb(0, 131, 138);
   color: white;
   border: none;
-  padding: 0.8rem 4rem;
+  font-family: 'Poppins', sans-serif;
+  padding: 0.7rem 4rem;
   border-radius: 20px;
   font-weight: 600;
   font-size: 1rem;
@@ -80,9 +99,10 @@ const AddToCartButton = styled.button`
   }
 `;
 
-const Discount = styled.p`
+const Discount = styled.h2`
   color: #d32f2f;
   font-weight: bold;
+  font-size: 1.1rem;
 `;
 
 const Review = styled.div`
@@ -113,7 +133,7 @@ const ReviewMeta = styled.div`
 `;
 
 const Stars = styled.span`
-  color: #f5a623;
+  color: rgb(145, 107, 4);
 `;
 
 // --- ProductPage component ---
@@ -161,7 +181,8 @@ export default function ProductPage() {
         />
         <ProductDetails>
           <h1>{product.title}</h1>
-          <p>{product.description}</p>
+          <Description>{product.description}</Description>
+
           <div>
             {hasDiscount ? (
               <>
@@ -171,13 +192,13 @@ export default function ProductPage() {
                     marginRight: '0.5rem',
                   }}
                 >
-                  {product.price} €
+                  <Price>{product.price} €</Price>
                 </span>
-                <strong>{product.discountedPrice} €</strong>
+                <DiscountedPrice>{product.discountedPrice} €</DiscountedPrice>
                 <Discount>({discountPercentage}% off)</Discount>
               </>
             ) : (
-              <strong>{product.price} €</strong>
+              <Price>{product.price} €</Price>
             )}
           </div>
           <AddToCartButton
@@ -185,13 +206,14 @@ export default function ProductPage() {
               addToCart(product);
               toast.success(`${product.title} added to cart!`);
             }}
+            aria-label="Add to cart"
           >
             Add to cart
           </AddToCartButton>
 
           {product.reviews.length > 0 && (
             <div>
-              <h3>Reviews</h3>
+              <h2>Reviews</h2>
               {product.reviews.map((review) => (
                 <Review key={review.id}>
                   <Reviewer>{review.username}</Reviewer>

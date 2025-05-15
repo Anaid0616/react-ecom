@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCartStore } from '../../store/useCartStore';
 import { useState } from 'react';
 import { FaBars, FaTimes, FaShoppingCart } from 'react-icons/fa';
-import logo from '../../assets/logov.png';
+import logo from '../../assets/logo.png';
 
 // --- Styled components ---
 const HeaderWrapper = styled.header`
@@ -56,12 +56,12 @@ const CartIcon = styled.div`
 
 const CartCount = styled.span`
   position: absolute;
-  top: -6px;
-  right: -10px;
-  background-color: #00bfa6;
-  color: #8e44ad;
-  font-size: 0.75rem;
-  font-weight: bold;
+  top: -8px;
+  right: -12px;
+  background-color: rgb(29, 211, 187);
+  color: rgb(113, 43, 146);
+  font-size: 0.8rem;
+  font-weight: 700;
   border-radius: 50%;
   padding: 2px 6px;
   line-height: 1;
@@ -157,7 +157,7 @@ function Header() {
 
           <DesktopLinks>
             <Link to="/contact">Contact</Link>
-            <Link to="/cart">
+            <Link to="/cart" aria-label="View cart">
               <CartIconWrapper>
                 <CartIcon>
                   <FaShoppingCart size={20} />
@@ -168,7 +168,7 @@ function Header() {
           </DesktopLinks>
 
           <MobileActions>
-            <Link to="/cart">
+            <Link to="/cart" aria-label="View cart">
               <CartIconWrapper>
                 <CartIcon>
                   <FaShoppingCart size={20} />

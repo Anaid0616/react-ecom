@@ -15,6 +15,19 @@ const Wrapper = styled.div`
     padding: 0.1rem;
 `;
 
+const BackLink = styled(Link)`
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #8e44ad;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: #732d91;
+  }
+`;
+
 const CartTitle = styled.h1`
   margin-bottom: 2rem;
   text-align: center;
@@ -48,7 +61,7 @@ const Info = styled.div`
   flex: 1;
 `;
 
-const Name = styled.h3`
+const Name = styled.h2`
   margin: 0 0 0.3rem;
 `;
 
@@ -107,9 +120,10 @@ const Actions = styled.div`
 
 const ActionButton = styled.button`
   flex: 1;
-  background-color: #009b8a;
+  background-color: rgb(0, 131, 138);
+  font-family: 'Poppins', sans-serif;
   color: white;
-  padding: 0.8rem;
+  padding: 0.7rem;
   font-size: 1rem;
   font-weight: 600;
   border: none;
@@ -124,6 +138,7 @@ const ActionButton = styled.button`
 const ClearButton = styled(ActionButton)`
   background-color: #8e44ad;
   max-width: 120px;
+  font-family: 'Poppins', sans-serif;
 
   &:hover {
     background-color: #732d91;
@@ -139,11 +154,11 @@ const EmptyState = styled.div`
   }
 
   a {
-    color: #009b8a;
+    color: #8e44ad;
     text-decoration: underline;
 
     &:hover {
-      color: #007d6f;
+      color: #732d91;
     }
   }
 `;
@@ -161,15 +176,16 @@ const Summary = styled.div`
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
+`;
 
-  .total {
-    border-top: 1px solid #bbb;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-  }
+const Total = styled.div`
+  border-top: 1px solid #bbb;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+`;
 
-  .discount {
+const Discount = styled.div`
     color: #d32f2f;
   }
 `;
@@ -238,16 +254,7 @@ export default function CartPage() {
 
   return (
     <Wrapper>
-      <Link
-        to="/"
-        style={{
-          display: 'inline-block',
-          marginBottom: '1rem',
-          color: '#009b8a',
-        }}
-      >
-        ← Back to store
-      </Link>
+      <BackLink to="/">← Back to store</BackLink>
 
       <CartTitle>Your Cart</CartTitle>
       {items.map((item) => (
@@ -258,16 +265,23 @@ export default function CartPage() {
               alt={item.image.alt || item.title}
             />
           </Link>
+
           <Info>
             <Link to={`/product/${item.id}`}>
               <Name>{item.title}</Name>
             </Link>
             <QuantityControls>
-              <Button onClick={() => decreaseQuantity(item.id)}>
+              <Button
+                onClick={() => decreaseQuantity(item.id)}
+                aria-label="Decrease item"
+              >
                 <FaMinus />
               </Button>
               <span>{item.quantity}</span>
-              <Button onClick={() => addToCart(stripQuantity(item))}>
+              <Button
+                onClick={() => addToCart(stripQuantity(item))}
+                aria-label="Add item"
+              >
                 <FaPlus />
               </Button>
             </QuantityControls>
@@ -278,27 +292,31 @@ export default function CartPage() {
               {(item.discountedPrice || item.price) * item.quantity} kr
             </Price>
 
-            <TrashButton onClick={() => removeFromCart(item.id)}>
+            <TrashButton
+              onClick={() => removeFromCart(item.id)}
+              aria-label="Remove item"
+            >
               <FaTrash />
             </TrashButton>
           </ItemActions>
         </CartItem>
       ))}
+
       <Summary>
         <div>
           <span>Subtotal (before discounts)</span>
           <span>{originalTotal.toFixed(2)} €</span>
         </div>
         {discount > 0 && (
-          <div className="discount">
+          <Discount>
             <span>Discount</span>
             <span>-{discount.toFixed(2)} €</span>
-          </div>
+          </Discount>
         )}
-        <div className="total">
+        <Total>
           <span>Total:</span>
           <span>{finalTotal.toFixed(2)} €</span>
-        </div>
+        </Total>
       </Summary>
 
       <Actions>

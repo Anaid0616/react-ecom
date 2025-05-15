@@ -43,17 +43,18 @@ const Field = styled.div`
     border: 1px solid #ccc;
 
     &:focus {
-      border-color: #009b8a;
+      border-color: rgb(0, 131, 138);
       outline: none;
     }
   }
 `;
 
 const Button = styled.button`
-  padding: 0.75rem 1.5rem;
-  background-color: #009b8a;
+  padding: 0.7rem 1.5rem;
+  background-color: rgb(0, 131, 138);
   color: white;
-  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
   border: none;
   border-radius: 20px;
   cursor: pointer;
