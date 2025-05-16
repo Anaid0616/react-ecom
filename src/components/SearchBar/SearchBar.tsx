@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { TProduct } from '../../types/Products';
+import banner from '../../assets/banner.png'; // adjust path as needed
 
 const SearchArea = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url('/public/banner.png');
+    url(${banner});
   background-size: cover;
   background-position: center bottom;
   padding: 6rem 0rem;
