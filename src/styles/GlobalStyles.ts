@@ -15,16 +15,6 @@ export const GlobalStyle = createGlobalStyle`
     color: #333;
   }
 
-  #root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  main {
-    flex: 1; 
-  }
-
   a {
     color: inherit;
     text-decoration: none;

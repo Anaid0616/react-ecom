@@ -50,6 +50,7 @@ export const ProductImage = styled.img`
 
 export const ProductDetails = styled.div`
   max-width: 450px;
+  min-width: 300px;
   flex: 1;
 
   h1 {
@@ -88,6 +89,10 @@ export const AddToCartButton = styled.button`
 
   &:hover {
     background-color: #007d6f;
+  }
+
+  @media (min-width: 600px) and (max-width: 784px) {
+    padding: 0.7rem 2rem;
   }
 `;
 
