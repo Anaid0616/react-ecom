@@ -7,7 +7,7 @@ import { TProduct } from '../../types/Products';
 
 const SearchArea = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    url('/src/assets/banner.png');
+    url('/public/banner.png');
   background-size: cover;
   background-position: center bottom;
   padding: 6rem 0rem;
