@@ -1,194 +1,29 @@
-import styled from 'styled-components';
 import { useCartStore } from '../store/useCartStore';
 import { Link } from 'react-router-dom';
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 import { TProduct } from '../types/Products';
 import { useNavigate } from 'react-router-dom';
-
-// --- Styled components ---
-const Wrapper = styled.div`
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-
-  @media (max-width: 500px) {
-    padding: 0.1rem;
-`;
-
-const BackLink = styled(Link)`
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #8e44ad;
-  font-weight: 600;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-    color: #732d91;
-  }
-`;
-
-const CartTitle = styled.h1`
-  margin-bottom: 2rem;
-  text-align: center;
-
-  @media (max-width: 600px) {
-    font-size: 2.2rem;
-`;
-
-const CartItem = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid #eee;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
-const ProductImage = styled.img`
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-`;
-
-const Info = styled.div`
-  flex: 1;
-`;
-
-const Name = styled.h2`
-  margin: 0 0 0.3rem;
-`;
-
-const Price = styled.div<{ $discounted?: boolean }>`
-  font-weight: 600;
-  color: ${(props) => (props.$discounted ? '#d32f2f' : 'inherit')};
-`;
-
-const QuantityControls = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
-const Button = styled.button`
-  border: none;
-  background-color: #eee;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #ddd;
-  }
-`;
-
-const ItemActions = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-left: auto;
-
-  @media (max-width: 600px) {
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    width: 100%;
-  }
-`;
-
-const TrashButton = styled(Button)`
-  background-color: #e74c3c;
-  color: white;
-  margin-left: auto;
-
-  &:hover {
-    background-color: #c0392b;
-  }
-`;
-
-const Actions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
-  gap: 1rem;
-`;
-
-const ActionButton = styled.button`
-  flex: 1;
-  background-color: rgb(0, 131, 138);
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  padding: 0.7rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #007d6f;
-  }
-`;
-
-const ClearButton = styled(ActionButton)`
-  background-color: #8e44ad;
-  max-width: 120px;
-  font-family: 'Poppins', sans-serif;
-
-  &:hover {
-    background-color: #732d91;
-  }
-`;
-
-const EmptyState = styled.div`
-  text-align: center;
-  margin-top: 3rem;
-
-  p {
-    margin-bottom: 1rem;
-  }
-
-  a {
-    color: #8e44ad;
-    text-decoration: underline;
-
-    &:hover {
-      color: #732d91;
-    }
-  }
-`;
-
-const Summary = styled.div`
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #ddd;
-  max-width: 400px;
-  margin-left: auto;
-  font-size: 1rem;
-
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-`;
-
-const Total = styled.div`
-  border-top: 1px solid #bbb;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-`;
-
-const Discount = styled.div`
-    color: #d32f2f;
-  }
-`;
+import {
+  Wrapper,
+  BackLink,
+  CartTitle,
+  CartItem,
+  ProductImage,
+  Info,
+  Name,
+  Price,
+  QuantityControls,
+  Button,
+  TrashButton,
+  ItemActions,
+  Actions,
+  ActionButton,
+  ClearButton,
+  EmptyState,
+  Summary,
+  Total,
+  Discount,
+} from './CartPage.styles';
 
 /**
  * Removes the `quantity` property from a cart item to convert it back to a plain product.
@@ -263,6 +98,9 @@ export default function CartPage() {
             <ProductImage
               src={item.image.url}
               alt={item.image.alt || item.title}
+              width={80}
+              height={80}
+              loading="lazy"
             />
           </Link>
 
@@ -270,6 +108,7 @@ export default function CartPage() {
             <Link to={`/product/${item.id}`}>
               <Name>{item.title}</Name>
             </Link>
+
             <QuantityControls>
               <Button
                 onClick={() => decreaseQuantity(item.id)}

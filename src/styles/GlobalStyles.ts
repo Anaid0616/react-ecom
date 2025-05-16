@@ -1,18 +1,49 @@
+// src/styles/GlobalStyle.ts
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-  body {
+  html, body {
     margin: 0;
+    padding: 0;
+    min-height: 100vh;
     font-family: 'Quicksand', sans-serif;
-    font-weight: 550;
-    background: #f5f5f5;
+    background-color: #f5f5f5;
     color: #333;
   }
 
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1; 
+  }
+
   a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
     font-weight: 600;
+  }
+
+  button {
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-radius: 20px;
+    text-decoration: none;
+    outline: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+    height: auto;
   }
 `;
