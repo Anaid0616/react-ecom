@@ -11,13 +11,13 @@ const SearchArea = styled.div`
     url(${banner});
   background-size: cover;
   background-position: center bottom;
-  padding: 6rem 0rem;
+  padding: 8rem 0rem;
   display: flex;
   justify-content: center;
   width: 100%;
 
   @media (max-width: 600px) {
-    background-position: center;
+    padding: 6rem 0rem;
   }
 `;
 
@@ -31,11 +31,12 @@ const SearchContainer = styled.div`
 const IntroText = styled.h1`
   color: white;
   font-size: 1.8rem;
+  margin-top: 0;
   margin-bottom: 1.2rem;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 600px) {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
 `;
 

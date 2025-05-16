@@ -176,7 +176,10 @@ function Header() {
                 {total > 0 && <CartCount>{total}</CartCount>}
               </CartIconWrapper>
             </Link>
-            <HamburgerButton onClick={() => setIsOpen(!isOpen)}>
+            <HamburgerButton
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Hamburger menu"
+            >
               {isOpen ? <FaTimes /> : <FaBars />}
             </HamburgerButton>
           </MobileActions>
