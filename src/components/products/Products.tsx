@@ -19,17 +19,21 @@ const Message = styled.p`
 export function Products() {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const debouncedSearch = useDebounce(search);
 
   useEffect(() => {
     async function fetchProducts() {
       try {
+        setLoading(true);
         const response = await fetch(ONLINE_SHOP_API_URL);
         const json = await response.json();
         setProducts(json.data);
       } catch (error) {
         console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -52,8 +56,12 @@ export function Products() {
         value={search}
         onChange={setSearch}
       />
-      {filteredProducts.length > 0 ? (
-        <ProductsList products={filteredProducts} />
+
+      {/* Show skeleton while loading */}
+      {loading ? (
+        <ProductsList products={[]} isLoading={true} />
+      ) : filteredProducts.length > 0 ? (
+        <ProductsList products={filteredProducts} isLoading={false} />
       ) : (
         <Message>No products found matching “{search}”.</Message>
       )}

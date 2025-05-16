@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 import { TProduct } from '../types/Products';
 import { useNavigate } from 'react-router-dom';
+import { CartSkeleton } from '../components/skeletons/Skeletons';
+import { useEffect, useState } from 'react';
+
 import {
   Wrapper,
   BackLink,
@@ -55,6 +58,16 @@ export default function CartPage() {
   const { items, addToCart, removeFromCart, clearCart } = useCartStore();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 200);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   const decreaseQuantity = (itemId: string) => {
     const item = items.find((i) => i.id === itemId);
     if (item && item.quantity > 1) {
@@ -87,6 +100,9 @@ export default function CartPage() {
   const discount = originalTotal - discountedTotal;
   const finalTotal = discountedTotal;
 
+  if (loading) return <CartSkeleton />;
+
+  // --- Cart page layout ---
   return (
     <Wrapper>
       <BackLink to="/">← Back to store</BackLink>

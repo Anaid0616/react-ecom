@@ -5,6 +5,7 @@ import { ONLINE_SHOP_API_URL } from '../common/common';
 import { useCartStore } from '../store/useCartStore';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { ProductSkeleton } from '../components/skeletons/Skeletons';
 import {
   Wrapper,
   Breadcrumbs,
@@ -23,7 +24,16 @@ import {
   Stars,
 } from './ProductPage.styles';
 
-// --- ProductPage component ---
+/**
+ * ProductPage component
+ *
+ * Fetches and displays details for a single product based on the URL `:id` parameter.
+ * While loading, it shows skeleton placeholders to improve UX.
+ * Handles both normal and discounted pricing and shows user reviews if available.
+ * Also includes an "Add to cart" button with Zustand state management and toast feedback.
+ *
+ * @returns {JSX.Element} A product detail view, or loading skeleton, or a fallback message.
+ */
 export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<TProduct | null>(null);
@@ -46,9 +56,10 @@ export default function ProductPage() {
     fetchProduct();
   }, [id]);
 
-  if (loading) return <Wrapper>Loading...</Wrapper>;
+  if (loading) return <ProductSkeleton />;
   if (!product) return <Wrapper>Product not found</Wrapper>;
 
+  // --- Calculate discount percentage ---
   const hasDiscount = product.discountedPrice < product.price;
   const discountPercentage = hasDiscount
     ? Math.round(
@@ -56,6 +67,7 @@ export default function ProductPage() {
       )
     : 0;
 
+  // --- Render product details ---
   return (
     <Wrapper>
       <Breadcrumbs>
