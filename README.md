@@ -4,9 +4,9 @@
 
 ![Vibity Banner]()
 
-## Vibity - Summer Vibes Store
+## 🎯 Assignment Goal
 
-A react e-commerce application created as part of the Front-End Development (FED2) course at Noroff School of Technology and Digital Media. Vibity lets users browse tech and accessories, search and view product details, add to cart, and simulate a checkout experience — all wrapped in a stylish UI and smooth interactions.
+To apply React knowledge to build a responsive, multi-page eCommerce store using the Noroff Online Shop API.
 
 [🔗 Live Demo](https://vibitystore.netlify.app/)
 
@@ -26,21 +26,25 @@ A react e-commerce application created as part of the Front-End Development (FED
 
 ---
 
-## Description
+## 🛍️ Project Brief
 
-The purpose of this project is to apply modern front-end tools and workflows to build a product listing site from scratch. It supports product discovery, client-side routing, live search filtering, state management for the cart, and a confirmation-based checkout flow. Styling is done using Styled Components and the application is fully responsive across devices.
+This application is a functional eCommerce site built with React. It fetches product data, allowing users to:
+
+- Browse all products on the homepage
+- View detailed product information
+- Add products to a cart
+- Complete a checkout flow
+- Contact the store via a validated form
 
 ---
 
 ## Features
 
-- 🔍 **Live Search Bar** with suggestions
-- 🛍️ **Product Grid** layout with responsive cards
-- 🛒 **Cart Management** with Zustand
-- 🖼️ **Product Details Page** with routing
+- 🔍 **Homepage** | Lists all products from the API. Includes an autocomplete search bar that filters by product title.
+- 🛍️ **Product Page** | Dynamic route that shows detailed product info including image, price, discount, and reviews.
+- 🛒 **Cart Page** with Zustand
 - ✅ **Checkout Success Page** with confetti animation
-- 📱 **Mobile-First Design**
-- ⚙️ **Unit Tests** with Vitest and Testing Library
+- 📱 **Contact Page** | Validated form with name, subject, email, and message inputs.
 
 ---
 
@@ -72,16 +76,29 @@ git clone https://github.com/Anaid0616/react-ecom.git
 ```
 
 ```bash
-cd vibity
-```
-
-```bash
 npm install
 ```
 
 ```bash
 npm run dev
 ```
+
+---
+
+## 🗂️ File Structure
+
+/public # Static files
+/src
+/assets # Image, Logo
+/common # Api
+/components # Reusable UI components
+/pages # Page views (Home, Product, Cart, etc.)
+/store # Zustand store
+/styles # Global and styled-components
+/types # TypeScript types
+/utils # Custom hooks and utilities
+main.tsx # Entry point
+App.tsx # Route layout and navigation
 
 ---
 
