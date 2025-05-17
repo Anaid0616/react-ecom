@@ -18,6 +18,22 @@ import {
   HamburgerButton,
 } from './Header.styles';
 
+/**
+ * Header component
+ *
+ * Displays the site's navigation bar including:
+ * - Logo linking to the homepage.
+ * - Navigation links (e.g. Contact).
+ * - Shopping cart icon with item count from global cart state.
+ * - Responsive hamburger menu for mobile.
+ *
+ * Uses Zustand for cart state management (`useCartStore`) to calculate total items.
+ * Responsive layout adapts navigation for both desktop and mobile views.
+ *
+ * @component
+ * @returns The main site header with logo, nav links, and cart icon.
+ */
+
 function Header() {
   const items = useCartStore((state) => state.items);
   const total = items.reduce((sum, item) => sum + item.quantity, 0);

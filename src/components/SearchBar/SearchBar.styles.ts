@@ -117,6 +117,7 @@ export const AutocompleteItem = styled.li`
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #eee;
   cursor: pointer;
+  transition: background 0.2s ease;
 
   &:hover {
     background-color: #f0f0f0;

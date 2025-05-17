@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { SearchBar } from '../../components/SearchBar/SearchBar';
 import { useDebounce } from '../../utils/useDebounce';
 
+// --- Styled components ---
 const Wrapper = styled.div``;
 
 const Message = styled.p`
@@ -16,6 +17,18 @@ const Message = styled.p`
   text-align: center;
 `;
 
+/**
+ * Products component
+ *
+ * Fetches and displays a list of products from the API.
+ * - Includes a debounced search bar to filter products by title or description.
+ * - Displays loading skeletons while fetching.
+ * - Shows a fallback message when no products match the search term.
+ * - Navigates to the product detail page on selection from the autocomplete.
+ *
+ * @component
+ * @returns The product listing view with search functionality.
+ */
 export function Products() {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [search, setSearch] = useState('');

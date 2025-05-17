@@ -33,6 +33,21 @@ type TProductsListProps = {
   isLoading?: boolean;
 };
 
+/**
+ * ProductsList component
+ *
+ * Renders a responsive grid of product cards.
+ * - Shows actual product components when `isLoading` is false.
+ * - Displays skeleton placeholders while loading.
+ * - Accepts an optional loading state for smoother UX.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {TProduct[]} props.products - The list of products to display.
+ * @param {boolean} [props.isLoading=false] - Whether to show skeletons instead of actual products.
+ * @returns A styled grid of products or skeleton placeholders.
+ */
+
 export const ProductsList = ({
   products,
   isLoading = false,

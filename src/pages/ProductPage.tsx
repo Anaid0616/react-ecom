@@ -57,7 +57,16 @@ export default function ProductPage() {
   }, [id]);
 
   if (loading) return <ProductSkeleton />;
-  if (!product) return <Wrapper>Product not found</Wrapper>;
+
+  if (!product) {
+    return (
+      <Wrapper>
+        <h2>Oops! Product not found</h2>
+        <p>The product may have been removed or the link is incorrect.</p>
+        <Link to="/">← Back to home</Link>
+      </Wrapper>
+    );
+  }
 
   // --- Calculate discount percentage ---
   const hasDiscount = product.discountedPrice < product.price;
