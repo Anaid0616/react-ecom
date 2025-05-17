@@ -2,7 +2,7 @@
 
 **Diana Bergelin**
 
-![Vibity Banner]()
+![Vibity Banner](https://github.com/user-attachments/assets/3746af46-def3-4eac-9a6e-f41fde7f10a6)
 
 ## 🎯 Assignment Goal
 
