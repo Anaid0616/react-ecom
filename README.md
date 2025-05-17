@@ -88,16 +88,27 @@ npm run dev
 ## 🗂️ File Structure
 
 /public # Static files
+
 /src
+
 /assets # Image, Logo
+
 /common # Api
+
 /components # Reusable UI components
+
 /pages # Page views (Home, Product, Cart, etc.)
+
 /store # Zustand store
+
 /styles # Global and styled-components
+
 /types # TypeScript types
+
 /utils # Custom hooks and utilities
+
 main.tsx # Entry point
+
 App.tsx # Route layout and navigation
 
 ---

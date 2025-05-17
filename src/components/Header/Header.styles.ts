@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.header`
   background: linear-gradient(90deg, #00bfa6, #8e44ad);
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 `;
 
 export const Container = styled.div`
