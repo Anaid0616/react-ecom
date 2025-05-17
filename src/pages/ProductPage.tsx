@@ -6,8 +6,6 @@ import { useCartStore } from '../store/useCartStore';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { ProductSkeleton } from '../components/skeletons/Skeletons';
-import { Helmet } from 'react-helmet';
-
 import {
   Wrapper,
   Breadcrumbs,
@@ -80,79 +78,69 @@ export default function ProductPage() {
 
   // --- Render product details ---
   return (
-    <>
-      <Helmet>
-        <title>{product.title} | Vibity</title>
-        <meta
-          name="description"
-          content={product.description.slice(0, 150) + '...'}
+    <Wrapper>
+      <Breadcrumbs>
+        <Link to="/">Home</Link> &gt; <span>{product.title}</span>
+      </Breadcrumbs>
+
+      <FlexWrapper>
+        <ProductImage
+          src={product.image.url}
+          alt={product.image.alt || product.title}
+          width={450}
+          height={450}
+          loading="lazy"
         />
-      </Helmet>
 
-      <Wrapper>
-        <Breadcrumbs>
-          <Link to="/">Home</Link> &gt; <span>{product.title}</span>
-        </Breadcrumbs>
+        <ProductDetails>
+          <h1>{product.title}</h1>
+          <Description>{product.description}</Description>
 
-        <FlexWrapper>
-          <ProductImage
-            src={product.image.url}
-            alt={product.image.alt || product.title}
-            width={450}
-            height={450}
-            loading="lazy"
-          />
-
-          <ProductDetails>
-            <h1>{product.title}</h1>
-            <Description>{product.description}</Description>
-
-            <div>
-              {hasDiscount ? (
-                <>
-                  <span
-                    style={{
-                      textDecoration: 'line-through',
-                      marginRight: '0.5rem',
-                    }}
-                  >
-                    <Price>{product.price} €</Price>
-                  </span>
-                  <DiscountedPrice>{product.discountedPrice} €</DiscountedPrice>
-                  <Discount>({discountPercentage}% off)</Discount>
-                </>
-              ) : (
-                <Price>{product.price} €</Price>
-              )}
-            </div>
-
-            <AddToCartButton
-              onClick={() => {
-                addToCart(product);
-                toast.success(`${product.title} added to cart!`);
-              }}
-              aria-label="Add to cart"
-            >
-              Add to cart
-            </AddToCartButton>
-
-            {product.reviews.length > 0 && (
-              <div>
-                <h2>Reviews</h2>
-                {product.reviews.map((review) => (
-                  <Review key={review.id}>
-                    <Reviewer>{review.username}</Reviewer>
-                    <ReviewText>{review.description}</ReviewText>
-                    <ReviewMeta>
-                      <Stars>{'⭐'.repeat(review.rating)}</Stars>
-                    </ReviewMeta>
-                  </Review>
-                ))}
-              </div>
+          <div>
+            {hasDiscount ? (
+              <>
+                <span
+                  style={{
+                    textDecoration: 'line-through',
+                    marginRight: '0.5rem',
+                  }}
+                >
+                  <Price>{product.price} €</Price>
+                </span>
+                <DiscountedPrice>{product.discountedPrice} €</DiscountedPrice>
+                <Discount>({discountPercentage}% off)</Discount>
+              </>
+            ) : (
+              <Price>{product.price} €</Price>
             )}
-          </ProductDetails>
-        </FlexWrapper>
-      </Wrapper>
-    </>
+          </div>
+
+          <AddToCartButton
+            onClick={() => {
+              addToCart(product);
+              toast.success(`${product.title} added to cart!`);
+            }}
+            aria-label="Add to cart"
+          >
+            Add to cart
+          </AddToCartButton>
+
+          {product.reviews.length > 0 && (
+            <div>
+              <h2>Reviews</h2>
+              {product.reviews.map((review) => (
+                <Review key={review.id}>
+                  <Reviewer>{review.username}</Reviewer>
+                  <ReviewText>{review.description}</ReviewText>
+                  <ReviewMeta>
+                    <Stars>{'⭐'.repeat(review.rating)}</Stars>
+                  </ReviewMeta>
+                </Review>
+              ))}
+            </div>
+          )}
+        </ProductDetails>
+      </FlexWrapper>
+    </Wrapper>
   );
 }

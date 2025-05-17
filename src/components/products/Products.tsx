@@ -17,6 +17,23 @@ const Message = styled.p`
   text-align: center;
 `;
 
+const TitleWrapper = styled.div`
+  max-width: 1200px;
+  padding: 0 2rem;
+  margin: 0 auto;
+
+  @media (max-width: 300px) {
+    padding: 0 1rem;
+  }
+`;
+
+const SectionTitle = styled.h2`
+  text-align: left;
+  font-size: 1.1rem;
+  margin: 3rem 0 0;
+  color: #333;
+`;
+
 /**
  * Products component
  *
@@ -70,11 +87,19 @@ export function Products() {
         onChange={setSearch}
       />
 
+      <TitleWrapper>
+        <SectionTitle>Explore Our Selection</SectionTitle>
+      </TitleWrapper>
+
       {/* Show skeleton while loading */}
       {loading ? (
-        <ProductsList products={[]} isLoading={true} />
+        <ProductsList products={[]} isLoading={true} isSearching={false} />
       ) : filteredProducts.length > 0 ? (
-        <ProductsList products={filteredProducts} isLoading={false} />
+        <ProductsList
+          products={filteredProducts}
+          isLoading={false}
+          isSearching={search.length > 1}
+        />
       ) : (
         <Message>No products found matching “{search}”.</Message>
       )}

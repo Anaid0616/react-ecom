@@ -24,7 +24,7 @@ export const SearchContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 800px;
-  padding: 0 2rem;
+  padding: 0 1rem;
 `;
 
 export const IntroText = styled.h1`

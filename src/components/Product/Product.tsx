@@ -23,7 +23,7 @@ type ProductProps = {
  * @component
  * @param {Object} props - Props for the component.
  * @param {TProduct} props.product - The product data to display.
- * @returns {JSX.Element} A clickable product card.
+ * @returns A clickable product card.
  */
 export const Product = ({ product }: ProductProps) => {
   const { image, title, price, id } = product;

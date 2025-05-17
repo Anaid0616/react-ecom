@@ -3,7 +3,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
 import { Wrapper, Field, Button, SuccessMessage } from './ContactPage.styles';
-import { Helmet } from 'react-helmet';
 
 // --- Schema ---
 const schema = yup
@@ -52,71 +51,58 @@ export default function ContactPage() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Contact Us | Vibity</title>
-        <meta
-          name="description"
-          content="Contact Vibity with your questions or feedback."
-        />
-      </Helmet>
-      <Wrapper>
-        <h1>Contact Us</h1>
-        {submitted && (
-          <SuccessMessage>
-            ✅ Thank you! Your message has been sent.
-          </SuccessMessage>
-        )}
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <Field>
-            <label htmlFor="fullName">Full Name</label>
-            <input
-              id="fullName"
-              autoComplete="name"
-              {...register('fullName')}
-            />
-            {errors.fullName && (
-              <small style={{ color: 'red' }}>{errors.fullName.message}</small>
-            )}
-          </Field>
+    <Wrapper>
+      <h1>Contact Us</h1>
+      {submitted && (
+        <SuccessMessage>
+          ✅ Thank you! Your message has been sent.
+        </SuccessMessage>
+      )}
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Field>
+          <label htmlFor="fullName">Full Name</label>
+          <input id="fullName" autoComplete="name" {...register('fullName')} />
+          {errors.fullName && (
+            <small style={{ color: 'red' }}>{errors.fullName.message}</small>
+          )}
+        </Field>
 
-          <Field>
-            <label htmlFor="subject">Subject</label>
-            <input id="subject" autoComplete="off" {...register('subject')} />
-            {errors.subject && (
-              <small style={{ color: 'red' }}>{errors.subject.message}</small>
-            )}
-          </Field>
+        <Field>
+          <label htmlFor="subject">Subject</label>
+          <input id="subject" autoComplete="off" {...register('subject')} />
+          {errors.subject && (
+            <small style={{ color: 'red' }}>{errors.subject.message}</small>
+          )}
+        </Field>
 
-          <Field>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              autoComplete="email"
-              {...register('email')}
-            />
-            {errors.email && (
-              <small style={{ color: 'red' }}>{errors.email.message}</small>
-            )}
-          </Field>
+        <Field>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            autoComplete="email"
+            {...register('email')}
+          />
+          {errors.email && (
+            <small style={{ color: 'red' }}>{errors.email.message}</small>
+          )}
+        </Field>
 
-          <Field>
-            <label htmlFor="body">Message</label>
-            <textarea
-              id="body"
-              rows={5}
-              autoComplete="off"
-              {...register('body')}
-            />
-            {errors.body && (
-              <small style={{ color: 'red' }}>{errors.body.message}</small>
-            )}
-          </Field>
+        <Field>
+          <label htmlFor="body">Message</label>
+          <textarea
+            id="body"
+            rows={5}
+            autoComplete="off"
+            {...register('body')}
+          />
+          {errors.body && (
+            <small style={{ color: 'red' }}>{errors.body.message}</small>
+          )}
+        </Field>
 
-          <Button type="submit">Submit</Button>
-        </form>
-      </Wrapper>
-    </>
+        <Button type="submit">Submit</Button>
+      </form>
+    </Wrapper>
   );
 }

@@ -10,6 +10,8 @@ export const Card = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
+  max-width: 250px;
+  width: 100%;
 `;
 
 export const ProductImage = styled.img`

@@ -5,14 +5,26 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 // --- Styled components ---
-const Grid = styled.div`
+const Grid = styled.div<{ $isSearching?: boolean }>`
   display: grid;
   gap: 2rem;
-  padding: 2rem 2rem;
+  padding: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   justify-items: center;
   max-width: 1200px;
   margin: 0 auto;
+
+  ${({ $isSearching }) =>
+    $isSearching &&
+    `
+    min-height: 400px;
+    align-content: start;
+  `}
+
+  @media (max-width: 500px) {
+    padding: 1rem;
+    gap: 1rem;
+  }
 `;
 
 const SkeletonCard = styled.div`
@@ -31,6 +43,7 @@ const SkeletonCard = styled.div`
 type TProductsListProps = {
   products: TProduct[];
   isLoading?: boolean;
+  isSearching?: boolean;
 };
 
 /**
@@ -51,13 +64,14 @@ type TProductsListProps = {
 export const ProductsList = ({
   products,
   isLoading = false,
+  isSearching = false,
 }: TProductsListProps) => {
   return (
-    <Grid>
+    <Grid $isSearching={isSearching}>
       {isLoading
         ? Array.from({ length: 8 }).map((_, i) => (
             <SkeletonCard key={i}>
-              <Skeleton height={200} /> {/* image */}
+              <Skeleton height={200} />
               <div style={{ paddingTop: '1rem' }}>
                 <Skeleton height={20} style={{ marginBottom: '0.5rem' }} />
                 <Skeleton width="40%" height={20} />

@@ -5,7 +5,6 @@ import { TProduct } from '../types/Products';
 import { useNavigate } from 'react-router-dom';
 import { CartSkeleton } from '../components/skeletons/Skeletons';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import {
   Wrapper,
   BackLink,
@@ -104,92 +103,82 @@ export default function CartPage() {
 
   // --- Cart page layout ---
   return (
-    <>
-      <Helmet>
-        <title>Your Cart | Vibity</title>
-        <meta
-          name="description"
-          content="See the products in your cart and get ready to checkout."
-        />
-      </Helmet>
+    <Wrapper>
+      <BackLink to="/">← Back to store</BackLink>
 
-      <Wrapper>
-        <BackLink to="/">← Back to store</BackLink>
+      <CartTitle>Your Cart</CartTitle>
+      {items.map((item) => (
+        <CartItem key={item.id}>
+          <Link to={`/product/${item.id}`}>
+            <ProductImage
+              src={item.image.url}
+              alt={item.image.alt || item.title}
+              width={80}
+              height={80}
+              loading="lazy"
+            />
+          </Link>
 
-        <CartTitle>Your Cart</CartTitle>
-        {items.map((item) => (
-          <CartItem key={item.id}>
+          <Info>
             <Link to={`/product/${item.id}`}>
-              <ProductImage
-                src={item.image.url}
-                alt={item.image.alt || item.title}
-                width={80}
-                height={80}
-                loading="lazy"
-              />
+              <Name>{item.title}</Name>
             </Link>
 
-            <Info>
-              <Link to={`/product/${item.id}`}>
-                <Name>{item.title}</Name>
-              </Link>
-
-              <QuantityControls>
-                <Button
-                  onClick={() => decreaseQuantity(item.id)}
-                  aria-label="Decrease item"
-                >
-                  <FaMinus />
-                </Button>
-                <span>{item.quantity}</span>
-                <Button
-                  onClick={() => addToCart(stripQuantity(item))}
-                  aria-label="Add item"
-                >
-                  <FaPlus />
-                </Button>
-              </QuantityControls>
-            </Info>
-
-            <ItemActions>
-              <Price $discounted={item.discountedPrice < item.price}>
-                {(item.discountedPrice || item.price) * item.quantity} kr
-              </Price>
-
-              <TrashButton
-                onClick={() => removeFromCart(item.id)}
-                aria-label="Remove item"
+            <QuantityControls>
+              <Button
+                onClick={() => decreaseQuantity(item.id)}
+                aria-label="Decrease item"
               >
-                <FaTrash />
-              </TrashButton>
-            </ItemActions>
-          </CartItem>
-        ))}
+                <FaMinus />
+              </Button>
+              <span>{item.quantity}</span>
+              <Button
+                onClick={() => addToCart(stripQuantity(item))}
+                aria-label="Add item"
+              >
+                <FaPlus />
+              </Button>
+            </QuantityControls>
+          </Info>
 
-        <Summary>
-          <div>
-            <span>Subtotal (before discounts)</span>
-            <span>{originalTotal.toFixed(2)} €</span>
-          </div>
-          {discount > 0 && (
-            <Discount>
-              <span>Discount</span>
-              <span>-{discount.toFixed(2)} €</span>
-            </Discount>
-          )}
-          <Total>
-            <span>Total:</span>
-            <span>{finalTotal.toFixed(2)} €</span>
-          </Total>
-        </Summary>
+          <ItemActions>
+            <Price $discounted={item.discountedPrice < item.price}>
+              {(item.discountedPrice || item.price) * item.quantity} kr
+            </Price>
 
-        <Actions>
-          <ActionButton onClick={() => navigate('/checkout-success')}>
-            Checkout
-          </ActionButton>
-          <ClearButton onClick={clearCart}>Clear Cart</ClearButton>
-        </Actions>
-      </Wrapper>
-    </>
+            <TrashButton
+              onClick={() => removeFromCart(item.id)}
+              aria-label="Remove item"
+            >
+              <FaTrash />
+            </TrashButton>
+          </ItemActions>
+        </CartItem>
+      ))}
+
+      <Summary>
+        <div>
+          <span>Subtotal (before discounts)</span>
+          <span>{originalTotal.toFixed(2)} €</span>
+        </div>
+        {discount > 0 && (
+          <Discount>
+            <span>Discount</span>
+            <span>-{discount.toFixed(2)} €</span>
+          </Discount>
+        )}
+        <Total>
+          <span>Total:</span>
+          <span>{finalTotal.toFixed(2)} €</span>
+        </Total>
+      </Summary>
+
+      <Actions>
+        <ActionButton onClick={() => navigate('/checkout-success')}>
+          Checkout
+        </ActionButton>
+        <ClearButton onClick={clearCart}>Clear Cart</ClearButton>
+      </Actions>
+    </Wrapper>
   );
 }
