@@ -127,6 +127,8 @@ App.tsx # Route layout and navigation
 
 6. Complete checkout and view the confirmation screen.
 
+---
+
 ## Credits
 
 Design & Code: Diana Bergelin
@@ -141,9 +143,13 @@ Inspiration: Fyndiq, Pinterest
 
 Learning Support: Moodle, Martin Krüger tutorials, React homepage, ChatGPT, React tutorials
 
+---
+
 ## License
 
 This project was built for educational purposes at Noroff and is not licensed for commercial use.
+
+---
 
 ## Contact
 
