@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useCartStore } from '../store/useCartStore';
 import confetti from 'canvas-confetti';
+import { Helmet } from 'react-helmet';
 
 // --- Styled components ---
 const Wrapper = styled.div`
@@ -60,12 +61,22 @@ export default function CheckoutSuccessPage() {
   }, [clearCart]);
 
   return (
-    <Wrapper>
-      <Title>🎉 Order Successful!</Title>
-      <Message>
-        Thank you for your purchase. Your order has been placed.
-      </Message>
-      <BackButton to="/">← Back to Store</BackButton>
-    </Wrapper>
+    <>
+      <Helmet>
+        <title>Checkout Success | Vibity</title>
+        <meta
+          name="description"
+          content="Thank you for your purchase! Your Vibity order has been received."
+        />
+      </Helmet>
+
+      <Wrapper>
+        <Title>🎉 Order Successful!</Title>
+        <Message>
+          Thank you for your purchase. Your order has been placed.
+        </Message>
+        <BackButton to="/">← Back to Store</BackButton>
+      </Wrapper>
+    </>
   );
 }
