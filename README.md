@@ -157,4 +157,4 @@ This project was built for educational purposes at Noroff and is not licensed fo
 
 🔗 [LinkedIn](https://www.linkedin.com/in/diana-b-4209a72ba/)
 
-[Back to Top](#FED2-Ecom-Store-Vibity)
+[Back to Top](#fed2-ecom-store---vibity)
